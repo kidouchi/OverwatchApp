@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">OverwatchApp</string>
     <string name="action_settings">Settings</string>
+    <string name="event_retrieval_err_msg">Error in getting event</string>
+    <string name="update_profiles_err_msg">Couldn\'t update profile list</string>
+    <string name="profile_request_err_msg">This username doesn\'t exist :(</string>
+    <string name="internet_err_msg">Something borked :/</string>
 </resources>

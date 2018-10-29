@@ -2,6 +2,7 @@ package com.overwatch.kidouchi.overwatchapp;
 
 import android.app.Application;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.overwatch.kidouchi.overwatchapp.service.OverwatchService;
@@ -21,7 +22,8 @@ public class OverwatchApp extends Application {
         Stetho.initialize(Stetho.newInitializerBuilder(this)
                 .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                 .build());
-//        Stetho.initializeWithDefaults(this);
+
+        Fresco.initialize(this);
     }
 
     // Could DI but for simplicity sake
