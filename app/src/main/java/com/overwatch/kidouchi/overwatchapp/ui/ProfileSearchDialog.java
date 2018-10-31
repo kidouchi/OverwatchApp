@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.overwatch.kidouchi.overwatchapp.R;
 import com.overwatch.kidouchi.overwatchapp.bus.RxEventBus;
 import com.overwatch.kidouchi.overwatchapp.model.Profile;
+import com.overwatch.kidouchi.overwatchapp.repo.ProfileRepository;
 import com.overwatch.kidouchi.overwatchapp.viewmodel.ProfilesViewModel;
 
 import butterknife.BindView;
@@ -47,7 +48,7 @@ public class ProfileSearchDialog extends DialogFragment {
 
         RxEventBus.getInstance();
 
-        profilesViewModel = new ProfilesViewModel(getContext());
+        profilesViewModel = new ProfilesViewModel(new ProfileRepository(getActivity().getApplication()));
         setupPlatformSpinner();
         setupRegionSpinner();
 

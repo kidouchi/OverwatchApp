@@ -12,9 +12,11 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.overwatch.kidouchi.overwatchapp.OverwatchApp;
 import com.overwatch.kidouchi.overwatchapp.R;
 import com.overwatch.kidouchi.overwatchapp.bus.SearchEvent;
 import com.overwatch.kidouchi.overwatchapp.bus.RxEventBus;
+import com.overwatch.kidouchi.overwatchapp.repo.ProfileRepository;
 import com.overwatch.kidouchi.overwatchapp.viewmodel.ProfilesViewModel;
 
 import butterknife.BindView;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        profilesViewModel = new ProfilesViewModel(this);
+        profilesViewModel = new ProfilesViewModel(new ProfileRepository(getApplication()));
 
         compositeDisposable = new CompositeDisposable();
 
@@ -97,7 +99,11 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.delete_all_button)
     void onDeleteAll() {
-        profilesViewModel.clearProfileList();
+        profilesViewModel.clearProfileList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(numRows -> Toast.makeText(this, "Success! " + numRows + "deleted!", Toast.LENGTH_LONG).show(),
+                        throwable -> Toast.makeText(this, "Wasn't able to clear all the profiles", Toast.LENGTH_LONG).show());
     }
 
     private void updateList(@NonNull ProfileListAdapter adapter) {
